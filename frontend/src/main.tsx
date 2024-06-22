@@ -10,6 +10,13 @@ import {
   RouterProvider,
 } from 'react-router-dom';
 
+import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+
+const queryClient = new QueryClient({
+  defaultOptions: { queries: { retry: 5, /*retryDelay: 300*/ } },
+});
+
 import HomePage from './pages/HomePage.tsx';
 import ProductPage from './pages/ProductPage.tsx';
 
@@ -24,6 +31,9 @@ const router = createBrowserRouter(
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-     <RouterProvider router={router} />
+    <QueryClientProvider client={queryClient} >
+      <RouterProvider router={router} />
+      <ReactQueryDevtools initialIsOpen={false} />
+    </QueryClientProvider>
   </React.StrictMode>,
 )

@@ -9,4 +9,5 @@ export type Product = {
   stockCount: string;
   descriptions: string;
   rating: number;
+  reviews: number;
 };

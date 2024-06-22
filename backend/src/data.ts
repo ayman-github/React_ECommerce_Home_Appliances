@@ -11,7 +11,8 @@ export const sampleProduct: Product[] = [
     currency: '$',
     stockCount: '10900',
     descriptions: '55" QLed new tv brand',
-    rating: 4.9,
+    rating: 4,
+    reviews: 10,
   },
   {
     name: 'TV 2',
@@ -23,7 +24,8 @@ export const sampleProduct: Product[] = [
     currency: '$',
     stockCount: '400',
     descriptions: '75" QLed new tv brand',
-    rating: 4.7,
+    rating: 5,
+    reviews: 14,
   },
   {
     name: 'TV 3',
@@ -35,7 +37,8 @@ export const sampleProduct: Product[] = [
     currency: '$',
     stockCount: '1000',
     descriptions: '46" QLed new tv brand',
-    rating: 4.2,
+    rating: 3,
+    reviews: 22,
   },
   {
     name: 'TV 4',
@@ -47,6 +50,7 @@ export const sampleProduct: Product[] = [
     currency: '$',
     stockCount: '1200',
     descriptions: '50" QLed new tv brand',
-    rating: 4.2,
+    rating: 1,
+    reviews: 23,
   },
 ];

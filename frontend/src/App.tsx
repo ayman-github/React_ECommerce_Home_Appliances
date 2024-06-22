@@ -1,11 +1,12 @@
 import { Outlet } from "react-router-dom"
+import NavBar from "./components/bars/NavBar"
 
 function App() {
 
   return (
     <>
         <header className='bg-green-300'>
-          Home Appliances  
+          <NavBar />
         </header>
 
         <main>
