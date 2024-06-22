@@ -9,7 +9,7 @@ export function useProducts() {
     placeholderData: keepPreviousData,
     queryKey: ['PRODUCTS'],
     queryFn: async () => {
-      const url = 'api/products';
+      const url = 'api/product/getall';
       const response = await apiClient.get<Product[]>(url);
       return response.data;
     },

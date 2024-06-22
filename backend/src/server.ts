@@ -1,17 +1,42 @@
-import express, { Request, Response } from 'express';
-import { sampleProduct } from './data';
+import express from 'express';
+import mongoose from 'mongoose';
+import productRoute from './routes/product';
+
+//express
 const app = express();
+app.use(express.json());
+
+//dotenv
+import dotenv from 'dotenv';
+dotenv.config();
+
+//cors
 import cors from 'cors';
+app.use(
+  cors({
+    credentials: true,
+    origin: ['http://localhost:5173', 'http://localhost:3000'],
+  })
+);
 
-const corsOptions = require('./config/corsOptions');
-//import corsOptions from './config/corsOptions';
-app.use(cors(corsOptions));
+//Routes
+app.use(express.urlencoded({ extended: true }));
+app.use('/api/product', productRoute);
 
-app.get('/api/products', (req: Request, res: Response) => {
-  res.json(sampleProduct);
-});
+// app.get('/api/products', (req: Request, res: Response) => {
+//   res.json(sampleProduct);
+// });
 
-const PORT = 9000;
+//database
+mongoose
+  .connect(process.env.DATABASE_URL || '', {
+    retryWrites: true,
+  })
+  .then(() => console.log('Database connected successfully'))
+  .catch((err) => console.log('Error connecting to mongodb', err));
+
+//server
+const PORT = process.env.PORT || 8000;
 app.listen(PORT, () => {
-  console.log(`server started at http://localhost:${PORT}`);
+  console.log(`Server is running on port ${PORT}..`);
 });

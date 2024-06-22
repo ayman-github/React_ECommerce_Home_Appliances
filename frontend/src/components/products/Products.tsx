@@ -1,4 +1,4 @@
-import React from 'react'
+//import React from 'react'
 import { Link } from 'react-router-dom'
 import tvImg from '../../assets/tv.webp';
 import Rating from '../ui/Rating';
@@ -14,9 +14,9 @@ export default function Products( ) {
     <div className="w-full grid grid-cols-4 gap-2 p-5">
         { productData && 
             productData?.map((product: Product, index: number)=>(
-                <div className='bg-gray-200'>
-                    <Link to={`product/${product.slug}`} >
-                        <div key={index} className=" flex flex-col justify-center">
+                <div key={index} className='bg-gray-200'>
+                    <Link to={`product/${product._id}`} >
+                        <div  className=" flex flex-col justify-center">
                             <img className="w-full" src={tvImg}/>
                             <div className="w-full flex justify-center"> {product?.name} </div>
                             <div className="w-full flex justify-center"> {product?.brand} </div>
