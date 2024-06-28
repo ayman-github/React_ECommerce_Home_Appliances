@@ -14,7 +14,7 @@ export default function Products( ) {
     <div className="w-full grid grid-cols-4 gap-2 p-5">
         { productData && 
             productData?.map((product: Product, index: number)=>(
-                <div key={index} className='bg-gray-200'>
+                <div key={index} className='bg-gray-200 dark:bg-gray-900'>
                     <Link to={`product/${product._id}`} >
                         <div  className=" flex flex-col justify-center">
                             <img className="w-full" src={tvImg}/>

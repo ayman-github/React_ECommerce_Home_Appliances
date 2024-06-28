@@ -15,3 +15,17 @@ export function useProducts() {
     },
   });
 }
+
+export function useProduct(id: string) {
+  return useQuery({
+    enabled: true,
+    _defaulted: true,
+    placeholderData: keepPreviousData,
+    queryKey: ['PRODUCT', id],
+    queryFn: async () => {
+      const url = `api/product/get?productId=${id}`;
+      const response = await apiClient.get<Product>(url);
+      return response.data;
+    },
+  });
+}

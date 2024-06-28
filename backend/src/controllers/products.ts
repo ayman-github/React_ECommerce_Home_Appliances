@@ -46,3 +46,15 @@ export const create = async (req: Request, res: Response) => {
     res.status(500).json({ message: getErrorMessage(error) });
   }
 };
+
+export const getProduct = async (req: Request, res: Response) => {
+  try {
+    const productId = req.query.productId;
+    //console.log('productId:' + productId);
+
+    const product = await ProductModel.findOne({ _id: productId });
+    res.send(product);
+  } catch (error: unknown) {
+    res.status(500).json({ message: getErrorMessage(error) });
+  }
+};

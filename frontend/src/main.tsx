@@ -2,6 +2,8 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App.tsx'
 import './index.css'
+import { HelmetProvider } from 'react-helmet-async'
+
 
 import {
   createBrowserRouter,
@@ -19,6 +21,7 @@ const queryClient = new QueryClient({
 
 import HomePage from './pages/HomePage.tsx';
 import ProductPage from './pages/ProductPage.tsx';
+import { StoreProvider } from './AppStateContext.tsx'
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -31,9 +34,13 @@ const router = createBrowserRouter(
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <QueryClientProvider client={queryClient} >
-      <RouterProvider router={router} />
-      <ReactQueryDevtools initialIsOpen={false} />
-    </QueryClientProvider>
+    <StoreProvider>
+      <QueryClientProvider client={queryClient} >
+        <HelmetProvider>
+          <RouterProvider router={router} />
+        </HelmetProvider>
+        <ReactQueryDevtools initialIsOpen={false} />
+      </QueryClientProvider>
+    </StoreProvider>
   </React.StrictMode>,
 )

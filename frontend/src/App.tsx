@@ -2,21 +2,24 @@ import { Outlet } from "react-router-dom"
 import NavBar from "./components/bars/NavBar"
 
 function App() {
-
+  
   return (
-    <>
-        <header className='bg-green-300'>
-          <NavBar />
-        </header>
+    <main>
 
-        <main>
-          <Outlet />
-        </main>
+      <div className='bg-white dark:bg-black text-black dark:text-white h-screen'>
+          <header className='bg-green-300'>
+            <NavBar />
+          </header>
 
-        <footer className="w-full flex justify-center">
-          the footer
-        </footer>             
-    </>
+          <main>
+            <Outlet />
+          </main>
+
+          <footer className="w-full flex justify-center">
+            the footer
+          </footer>             
+      </div>
+    </main>
   )
 }
 
