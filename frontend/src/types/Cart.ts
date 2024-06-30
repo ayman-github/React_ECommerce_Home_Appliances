@@ -5,6 +5,7 @@ export type CartItem = {
   quantity: number;
   countInStock: number;
   price: number;
+  currency: string;
 };
 
 export type ShippingAddress = {

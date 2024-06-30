@@ -9,6 +9,7 @@ export const intoCart = (product: Product): CartItem => {
     price: product.price,
     countInStock: product.stockCount,
     quantity: 1,
+    currency: product.currency,
   };
   return cartItem;
 };

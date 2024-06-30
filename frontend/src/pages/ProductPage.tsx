@@ -1,17 +1,41 @@
 //import React from 'react'
-import { useParams } from 'react-router-dom'
+import { /*useNavigate,*/ useParams } from 'react-router-dom'
 import { useProduct } from '../services/api/useProducts';
 import { Helmet } from 'react-helmet-async'
 import productImg from '../assets/tv.webp'
 import Rating from '../components/ui/Rating';
 import ProductItem from '../components/products/ProductItem';
+// import { useContext } from 'react';
+// import { Store } from '../AppStateContext';
+// import { intoCart } from '../utils/intoCart';
+// import { Button } from '../components/ui/Button';
+import AddingToCart from '../components/products/AddingToCart';
+
 
 export default function ProductPage() {
   const {id} = useParams();
+  //const navigate = useNavigate();
 
   const {data: ProductData} = useProduct(id!);
 
   const price = ProductData?.currency + '' + ProductData?.price;
+
+  //const { state, dispatch } = useContext(Store)
+  //const { cart } = state
+  // const addToCart = async () => {
+  //   const existItem = cart.cartItems.find((x) => x._id === ProductData!._id)
+  //   const quantity = existItem ? existItem.quantity + 1 : 1
+  //   if (ProductData!.stockCount < quantity) {
+  //     //toast.warn('Sorry. Product is out of stock')
+  //     return
+  //   }
+  //   dispatch({
+  //     type: 'CART_ADD_ITEM',
+  //     payload: { ...intoCart(ProductData!), quantity },
+  //   })
+  //   //toast.success('Product added to the cart')
+  //   navigate('/cart')
+  // }
 
   return (
     <>
@@ -35,14 +59,17 @@ export default function ProductPage() {
           </div>
         </section>
 
-        <section key={3} className='w-full'>
-          <div className='divide-y-gray-300 mt-5 p-5 rounded-lg w-[70%]
-              border-[1px] border-solid border-gray-300 bg-gray-50 dark:bg-gray-900
-              divide-y-[1px] divide-y-gray-300'>
+        <section key={3} className='w-full h-fit border-[1px] border-solid border-gray-300 bg-gray-50 dark:bg-gray-900 rounded-lg '>
+          <div className='divide-y-gray-300 mt-3 mb-3 px-5 divide-y-[1px] divide-y-gray-300'>
             <ProductItem name='Price' value={price}/>
             <ProductItem name='Status' value='In Stock'/>
-            <button className='mt-2 bg-blue-500 py-2 px-5 rounded-lg text-white w-full'>Add to card</button>
           </div>
+          {/* <div className='mx-3 mb-3'>
+              <Button variant={'primary'} title='Add to Cart'
+                onClick={addToCart}
+              />
+          </div> */}
+          <AddingToCart product={ProductData!} to={'/cart'}/>
         </section>
         
       </div>

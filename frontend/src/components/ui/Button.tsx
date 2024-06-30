@@ -10,6 +10,8 @@ const buttonVariants = cva(
       variant: {
         primary:
           'w-full dark:text-white gap-1 bg-blue-500 dark:bg-blue-500 hover:bg-blue-700 hover:text-dark dark:hover:bg-blue-700 rounded-md text-[16px] px-3 font-semibold text-center inline-flex items-center',
+        danger:
+          'w-full dark:text-white gap-1 bg-red-500 dark:bg-red-500 hover:bg-red-700 hover:text-dark dark:hover:bg-red-700 rounded-md text-[16px] px-3 font-semibold text-center inline-flex items-center',
         default:
           'bg-slate-900 text-white hover:bg-slate-700 dark:bg-slate-50 dark:text-slate-900',
         destructive:
