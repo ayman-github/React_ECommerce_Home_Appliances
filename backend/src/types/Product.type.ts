@@ -1,4 +1,4 @@
-export type Product = {
+export type ProductType = {
   name: string;
   slug: string;
   image: string;
@@ -6,7 +6,7 @@ export type Product = {
   brand: string;
   price: number;
   currency: string;
-  stockCount: string;
+  stockCount: number;
   descriptions: string;
   rating: number;
   reviews: number;

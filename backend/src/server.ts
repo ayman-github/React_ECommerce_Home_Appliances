@@ -1,6 +1,8 @@
 import express from 'express';
 import mongoose from 'mongoose';
-import productRoute from './routes/product';
+import productRoute from './routes/product.route';
+import seedRoute from './routes/seed.route';
+import userRoute from './routes/user.route';
 
 //express
 const app = express();
@@ -22,6 +24,8 @@ app.use(
 //Routes
 app.use(express.urlencoded({ extended: true }));
 app.use('/api/product', productRoute);
+app.use('/api/seed', seedRoute);
+app.use('/api/user', userRoute);
 
 // app.get('/api/products', (req: Request, res: Response) => {
 //   res.json(sampleProduct);

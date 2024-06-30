@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import ProductModel from '../models/product.model';
-import { getErrorMessage } from '../types/Error';
+import { getErrorMessage } from '../utils/Error.util';
 
 export const getAllProducts = async (req: Request, res: Response) => {
   try {

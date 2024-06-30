@@ -1,8 +1,8 @@
 import mongoose, { Document, Schema } from 'mongoose';
-import { Product } from '../types/Product';
+import { ProductType } from '../types/Product.type';
 //const { ObjectId } = mongoose.Schema;
 
-export interface IProductModel extends Product, Document {}
+export interface IProductModel extends ProductType, Document {}
 
 const productSchema: Schema = new Schema(
   {
