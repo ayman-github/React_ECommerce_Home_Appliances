@@ -5,20 +5,28 @@ import bcrypt from 'bcryptjs';
 import { generateToken } from '../utils/token.util';
 
 export const register = async (req: Request, res: Response) => {
-  const { fullName, email, password, isAdmin } = req.body;
+  const { fullName, email, password } = req.body;
+
+  const isUser = await UserModel.findOne({ email: email });
+
+  if (isUser) {
+    res.status(400).json({ message: 'user is a ready exist' });
+  }
+
   try {
     const user = await new UserModel({
       fullName: fullName,
       email: email,
       password: bcrypt.hashSync(password, 12),
-      isAdmin: isAdmin,
-      //token: generateToken(user),
     }).save();
 
-    user.token = generateToken(user);
-    user.save();
-
-    res.send(user);
+    res.send({
+      _id: user._id,
+      fullName: user.fullName,
+      email: user.email,
+      isAdmin: user.isAdmin,
+      token: generateToken(user),
+    });
   } catch (error: unknown) {
     res.status(500).json({ message: getErrorMessage(error) });
   }
@@ -47,7 +55,7 @@ export const login = async (req: Request, res: Response) => {
 
     res.send({
       _id: user._id,
-      name: user.fullName,
+      fullName: user.fullName,
       email: user.email,
       isAdmin: user.isAdmin,
       token: generateToken(user),

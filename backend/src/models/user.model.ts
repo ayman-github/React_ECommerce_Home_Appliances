@@ -11,7 +11,6 @@ const userSchema: Schema = new Schema(
     email: { type: String },
     password: { type: String },
     isAdmin: { type: Boolean, default: false },
-    token: { type: String },
   },
   { timestamps: true }
 );

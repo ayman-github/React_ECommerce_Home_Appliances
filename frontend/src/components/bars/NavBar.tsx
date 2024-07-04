@@ -7,7 +7,17 @@ import  cartImg  from '../../assets/cart.png'
 
 export default function NavBar() {
   
-  const { state: {/*mode,*/ cart, }, /*dispatch*/ } = useContext(Store);
+  const { state: {/*mode,*/ cart, userInfo }, dispatch } = useContext(Store);
+
+  const logout = () => {
+    dispatch({ type: 'USER_LOGOUT' });
+    localStorage.removeItem('userInfo');
+    localStorage.removeItem('cartItems');
+    localStorage.removeItem('shippingAddress');
+    localStorage.removeItem('paymentMethod');
+    window.location.href = '/login'
+
+  }
 
   return (
     <div className='bg-black text-gray-300 p-3 flex justify-between items-center px-5'>
@@ -29,7 +39,17 @@ export default function NavBar() {
 
               </div>
           </Link>
-          <div>Profile</div>
+          <div>
+            {
+              userInfo 
+                && <> 
+                      {userInfo?.fullName} 
+                      <Link to="#logout" onClick={logout}> Logout </Link> 
+                   </>
+                || <Link to={'/login'}>Login</Link>
+            }
+          </div>
+
           <AppTheme />
         </section>
 

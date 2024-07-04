@@ -23,10 +23,12 @@ import HomePage from './pages/HomePage.tsx';
 import ProductPage from './pages/ProductPage.tsx';
 import { StoreProvider } from './AppStateContext.tsx'
 import CartPage from './pages/CartPage.tsx'
+import LoginPage from './pages/LoginPage.tsx'
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<App />}>
+      <Route path="/login" element={<LoginPage />} />
       <Route index={true} element={<HomePage />} />
       <Route path="product/:id" element={<ProductPage />} />
       <Route path="/cart" element={<CartPage />} />

@@ -37,13 +37,11 @@ export const sampleUsers: UserType[] = [
     email: 'admin@homeapp.go',
     password: bcrypt.hashSync('123456', 12),
     isAdmin: true,
-    token: 'string',
   },
   {
     fullName: 'user1',
     email: 'user1@homeapp.go',
     password: bcrypt.hashSync('123456', 12),
     isAdmin: false,
-    token: 'string',
   },
 ];

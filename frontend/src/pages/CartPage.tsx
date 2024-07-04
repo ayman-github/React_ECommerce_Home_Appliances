@@ -3,17 +3,17 @@ import { useContext } from 'react'
 import { Helmet } from 'react-helmet-async'
 import { Store } from '../AppStateContext'
 import { CartItem } from '../types/Cart';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import productImg from '../assets/tv.webp'
 
 import { FaMinusCircle, FaPlusCircle, /*FaRegTrashAlt*/ } from "react-icons/fa";
 import { Button } from '../components/ui/Button';
 
 
-
 export default function CartPage() {
 
   const { state: { cart: { cartItems } }, dispatch } = useContext(Store);
+  const navigate = useNavigate();
 
   const updateCart = async (item: CartItem, quantity: number) => {
     if (item.countInStock < quantity) {
@@ -88,7 +88,7 @@ export default function CartPage() {
                             disabled={cartItems.length === 0}
                             variant={'primary'} 
                             title='Checkout'
-                            onClick={()=>{}}
+                            onClick={()=>{navigate('/login?redirect=/cart')}}
                         />
                     </div>
                     

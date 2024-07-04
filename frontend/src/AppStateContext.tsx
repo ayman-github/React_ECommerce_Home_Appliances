@@ -1,12 +1,18 @@
 import React from "react"
 import { Cart, CartItem } from "./types/Cart"
+import { UserType } from "./types/User.type"
 
 type AppState = {
+    userInfo?: UserType,
     mode: string,
     cart: Cart
   }
 
   const initialState: AppState = {
+    userInfo: localStorage.getItem('userInfo')
+    ? JSON.parse(localStorage.getItem('userInfo')!)
+    : null,
+
     mode: localStorage.getItem('mode')
       ? localStorage.getItem('mode')!
       : window.matchMedia &&
@@ -33,12 +39,41 @@ type AppState = {
    }
 
   type Action =
+    | { type: 'USER_LOGIN'; payload: UserType }
+    | { type: 'USER_LOGOUT' }
     | { type: 'SWITCH_MODE' }
     | { type: 'CART_ADD_ITEM'; payload: CartItem }
     | { type: 'CART_REMOVE_ITEM'; payload: CartItem }
 
   function reducer(state: AppState, action: Action): AppState {
     switch (action.type) {
+      case 'USER_LOGIN': {
+        return { ...state, userInfo: action.payload }
+      }
+      case 'USER_LOGOUT': {
+        return {
+          mode:
+            window.matchMedia &&
+            window.matchMedia('(prefers-color-scheme: dark)').matches
+              ? 'dark'
+              : 'light',
+          cart: {
+            cartItems: [],
+            paymentMethod: 'PayPal',
+            shippingAddress: {
+              fullName: '',
+              address: '',
+              postalCode: '',
+              city: '',
+              country: '',
+            },
+            itemsPrice: 0,
+            shippingPrice: 0,
+            taxPrice: 0,
+            totalPrice: 0,
+          },
+        }
+      }
       case 'SWITCH_MODE': {
         localStorage.setItem("mode", state.mode === 'dark' ? 'light' : 'dark');
         return { ...state, mode: state.mode === 'dark' ? 'light' : 'dark' };
