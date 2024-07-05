@@ -24,6 +24,8 @@ import ProductPage from './pages/ProductPage.tsx';
 import { StoreProvider } from './AppStateContext.tsx'
 import CartPage from './pages/CartPage.tsx'
 import LoginPage from './pages/LoginPage.tsx'
+import ShippingPage from './pages/ShippingPage.tsx'
+import PaymentMethodPage from './pages/PaymentMethodPage.tsx'
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -32,6 +34,9 @@ const router = createBrowserRouter(
       <Route index={true} element={<HomePage />} />
       <Route path="product/:id" element={<ProductPage />} />
       <Route path="/cart" element={<CartPage />} />
+      <Route path="/shipping" element={<ShippingPage />} />
+      <Route path="payment" element={<PaymentMethodPage />} />
+
     </Route>
   )
 )

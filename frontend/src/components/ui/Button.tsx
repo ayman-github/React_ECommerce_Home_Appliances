@@ -3,7 +3,7 @@ import { VariantProps, cva } from 'class-variance-authority'
 import { Link } from 'react-router-dom'
 import { cn } from '../../utils/cn'
 import Spinner from '../../assets/spinner/Spinner'
-import { MdNavigateNext } from "react-icons/md";
+//import { MdNavigateNext } from "react-icons/md";
 
 
 const buttonVariants = cva(
@@ -69,9 +69,9 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
             {props.isLoading && <Spinner/>}
             {/* <Spinner/> */}
           </div>
-          <div className='text-center w-full col-span-3'>
+          <main className='text-center w-full col-span-3'>
             {props.title}
-          </div>
+          </main>
           <div className='w-full col-span-1 text-2xl'>
             {/* <MdNavigateNext /> */}
           </div>

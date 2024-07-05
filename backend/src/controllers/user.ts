@@ -10,7 +10,7 @@ export const register = async (req: Request, res: Response) => {
   const isUser = await UserModel.findOne({ email: email });
 
   if (isUser) {
-    res.status(400).json({ message: 'user is a ready exist' });
+    return res.status(400).json({ message: 'user is a ready exist' });
   }
 
   try {

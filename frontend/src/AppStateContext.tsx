@@ -1,5 +1,5 @@
 import React from "react"
-import { Cart, CartItem } from "./types/Cart"
+import { Cart, CartItem, ShippingAddress } from "./types/Cart"
 import { UserType } from "./types/User.type"
 
 type AppState = {
@@ -35,8 +35,7 @@ type AppState = {
       taxPrice: 0,
       totalPrice: 0,
     },
-
-   }
+  }
 
   type Action =
     | { type: 'USER_LOGIN'; payload: UserType }
@@ -44,6 +43,8 @@ type AppState = {
     | { type: 'SWITCH_MODE' }
     | { type: 'CART_ADD_ITEM'; payload: CartItem }
     | { type: 'CART_REMOVE_ITEM'; payload: CartItem }
+    | { type: 'SAVE_SHIPPING_ADDRESS'; payload: ShippingAddress }
+    | { type: 'SAVE_PAYMENT_METHOD'; payload: string }
 
   function reducer(state: AppState, action: Action): AppState {
     switch (action.type) {
@@ -95,6 +96,21 @@ type AppState = {
         )
         localStorage.setItem('cartItems', JSON.stringify(cartItems))
         return { ...state, cart: { ...state.cart, cartItems } }
+      }
+      case 'SAVE_SHIPPING_ADDRESS': {
+        return {
+          ...state,
+          cart: {
+            ...state.cart,
+            shippingAddress: action.payload,
+          },
+        }
+      }
+      case 'SAVE_PAYMENT_METHOD': {
+        return {
+          ...state,
+          cart: { ...state.cart, paymentMethod: action.payload },
+        }
       }
       default: {
         return state

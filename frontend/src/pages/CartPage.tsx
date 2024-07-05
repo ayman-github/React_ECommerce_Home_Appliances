@@ -88,7 +88,7 @@ export default function CartPage() {
                             disabled={cartItems.length === 0}
                             variant={'primary'} 
                             title='Checkout'
-                            onClick={()=>{navigate('/login?redirect=/cart')}}
+                            onClick={()=>{navigate('/login?redirect=/shipping')}}
                         />
                     </div>
                     

@@ -2,31 +2,10 @@ import { Product } from '../../types/Product'
 import { Link } from 'react-router-dom'
 import tvImg from '../../assets/tv.webp';
 import Rating from '../ui/Rating';
-// import { Button } from '../ui/Button';
-// import { useContext } from 'react';
-// import { Store } from '../../AppStateContext';
-// import { CartItem } from '../../types/Cart';
-// import { intoCart } from '../../utils/intoCart';
+
 import AddingToCart from './AddingToCart';
 
 export default function ProductCard ({product} : {product: Product}) {
-
-    //const { state, dispatch: xDispatch } = useContext(Store);
-    //const { cart: { cartItems }, } = state;
-
-    // const addToCart = async (item: CartItem) => {
-    //   const existItem = cartItems.find((x) => x._id === product._id)
-    //   const quantity = existItem ? existItem.quantity + 1 : 1
-    //   if (product.stockCount < quantity) {
-    //       //toast.warn('Sorry. Product is out of stock')
-    //       return
-    //   }
-    //   xDispatch({
-    //       type: 'CART_ADD_ITEM',
-    //       payload: { ...item, quantity },
-    //   })
-    //     //toast.success('Product added to the cart')
-    // }
 
   return (
     <>
