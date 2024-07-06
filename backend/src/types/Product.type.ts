@@ -1,4 +1,5 @@
 export type ProductType = {
+  _id?: string | unknown;
   name: string;
   slug: string;
   image: string;
