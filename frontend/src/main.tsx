@@ -26,6 +26,8 @@ import CartPage from './pages/CartPage.tsx'
 import LoginPage from './pages/LoginPage.tsx'
 import ShippingPage from './pages/ShippingPage.tsx'
 import PaymentMethodPage from './pages/PaymentMethodPage.tsx'
+import ProtectedRoute from './components/protected/ProtectedRoute.tsx'
+import PlaceOrderPage from './pages/PlaceOrderPage.tsx'
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -34,8 +36,11 @@ const router = createBrowserRouter(
       <Route index={true} element={<HomePage />} />
       <Route path="product/:id" element={<ProductPage />} />
       <Route path="/cart" element={<CartPage />} />
-      <Route path="/shipping" element={<ShippingPage />} />
-      <Route path="payment" element={<PaymentMethodPage />} />
+      <Route path="" element={<ProtectedRoute />}> 
+        <Route path="/shipping" element={<ShippingPage />} />
+        <Route path="payment" element={<PaymentMethodPage />} />
+        <Route path="placeorder" element={<PlaceOrderPage />} />
+      </Route>
 
     </Route>
   )

@@ -43,6 +43,7 @@ type AppState = {
     | { type: 'SWITCH_MODE' }
     | { type: 'CART_ADD_ITEM'; payload: CartItem }
     | { type: 'CART_REMOVE_ITEM'; payload: CartItem }
+    | { type: 'CART_CLEAR' }
     | { type: 'SAVE_SHIPPING_ADDRESS'; payload: ShippingAddress }
     | { type: 'SAVE_PAYMENT_METHOD'; payload: string }
 
@@ -93,9 +94,12 @@ type AppState = {
       case 'CART_REMOVE_ITEM': {
         const cartItems = state.cart.cartItems.filter(
           (item: CartItem) => item._id !== action.payload._id
-        )
+        );
         localStorage.setItem('cartItems', JSON.stringify(cartItems))
-        return { ...state, cart: { ...state.cart, cartItems } }
+        return { ...state, cart: { ...state.cart, cartItems } };
+      }
+      case 'CART_CLEAR': {
+        return { ...state, cart: { ...state.cart, cartItems: [] } };
       }
       case 'SAVE_SHIPPING_ADDRESS': {
         return {
@@ -113,7 +117,7 @@ type AppState = {
         }
       }
       default: {
-        return state
+        return state;
       }
     }
   }

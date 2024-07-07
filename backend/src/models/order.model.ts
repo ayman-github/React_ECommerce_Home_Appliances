@@ -17,16 +17,17 @@ const shippingSchema: Schema = new Schema({
 const itemSchema: Schema = new Schema({
   name: { type: String, required: true },
   quantity: { type: String, required: true },
-  image: { type: Number, required: true },
+  image: { type: String }, //required: true
   price: { type: Number, required: true },
   product: { type: ObjectId, ref: 'Product' },
 });
 
 const paymentSchema: Schema = new Schema({
+  //Todo: need to link
   paymentId: { type: String },
   status: { type: String },
-  update_time: { type: String },
-  email_address: { type: String },
+  updateTime: { type: Date, default: Date.now() },
+  emailAddress: { type: String },
 });
 
 const orderSchema: Schema = new Schema(
