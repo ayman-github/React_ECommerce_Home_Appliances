@@ -34,7 +34,7 @@ export default function PlaceOrderPage() {
 
     const order: Order = {
         orderItems: cart.cartItems,
-        shippingAddress: cart.shippingAddress,
+        shippingAddress: [cart.shippingAddress],
         paymentMethod: cart.paymentMethod,
         itemsPrice: cart.itemsPrice,
         shippingPrice: cart.shippingPrice,
@@ -76,7 +76,7 @@ export default function PlaceOrderPage() {
                 <ReviewCard 
                     title= 'Shipping Address' 
                     name= {userUnknown.fullName} 
-                    address={order?.shippingAddress.address}
+                    address={order?.shippingAddress[0].address}
                     editLink='shipping'
                 />
                 <ReviewCard 

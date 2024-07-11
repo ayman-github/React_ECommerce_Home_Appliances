@@ -4,7 +4,7 @@ import { UserType } from './User.type';
 export type Order = {
   _id?: string;
   orderItems: CartItem[];
-  shippingAddress: ShippingAddress;
+  shippingAddress: ShippingAddress[];
   paymentMethod: string;
   user: UserType;
   //createdAt: string;

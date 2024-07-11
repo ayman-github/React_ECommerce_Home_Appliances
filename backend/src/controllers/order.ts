@@ -42,3 +42,15 @@ export const placeOrder = async (req: Request, res: Response) => {
     res.status(500).json({ message: getErrorMessage(error) });
   }
 };
+
+export const getOrder = async (req: Request, res: Response) => {
+  try {
+    const { orderId } = req.query;
+
+    const order = await OrderModel.findOne({ _id: orderId });
+
+    res.status(201).send(order);
+  } catch (error: unknown) {
+    res.status(500).json({ message: getErrorMessage(error) });
+  }
+};

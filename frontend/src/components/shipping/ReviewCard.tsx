@@ -9,6 +9,8 @@ interface ICard {
     address?: string;
     orderItems?: CartItem[];
     editLink?: string;
+    isDelivery?: boolean;
+    isPaid?: boolean;
 }
 export default function ReviewCard(props: ICard) {
     const navigate = useNavigate();
@@ -21,6 +23,30 @@ export default function ReviewCard(props: ICard) {
         <div className="text-xl mb-3">{props?.title}</div>
         <div>{props?.name}</div>
         <div>{props?.address}</div>
+
+        {props?.isDelivery === true  && 
+            <div className="p-3 mt-2 bg-green-200 text-black rounded-md">
+                Delivered
+            </div>
+        }
+
+        {props?.isDelivery === false &&
+            <div className="p-3 mt-2 bg-yellow-100 text-black rounded-md">
+                Not Delivered
+            </div>
+        }
+
+        {props?.isPaid === true  && 
+            <div className="p-3 mt-2 bg-green-200 text-black rounded-md">
+                Paid
+            </div>
+        }
+
+        {props?.isPaid === false &&
+            <div className="p-3 mt-2 bg-yellow-100 text-black rounded-md">
+                Not Paid
+            </div>
+        }
 
         { props.editLink &&
             <div className="absolute top-5 right-5 

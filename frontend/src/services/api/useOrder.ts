@@ -1,4 +1,4 @@
-import { useMutation } from '@tanstack/react-query';
+import { keepPreviousData, useMutation, useQuery } from '@tanstack/react-query';
 import apiClient from './apiClient';
 import { Order } from '../../types/Order';
 
@@ -19,6 +19,20 @@ export function useCreateOrder() {
           totalPrice: order.totalPrice,
         }
       );
+      return response.data;
+    },
+  });
+}
+
+export function useGetOrder(id: string) {
+  return useQuery({
+    enabled: true,
+    _defaulted: true,
+    placeholderData: keepPreviousData,
+    queryKey: ['ORDER', id],
+    queryFn: async () => {
+      const url = `api/product/getOrder?orderId=${id}`;
+      const response = await apiClient.get<Order>(url);
       return response.data;
     },
   });
