@@ -23,8 +23,8 @@ type Item = {
 type Payment = {
   paymentId: string;
   status: string;
-  updateTime: string;
-  emailAddress: string;
+  updateTime?: string;
+  email: string;
 };
 
 export type OrderType = {

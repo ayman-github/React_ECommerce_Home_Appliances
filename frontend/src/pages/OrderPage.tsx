@@ -1,29 +1,105 @@
-import React, { useContext } from 'react'
+import { useEffect } from 'react'
 import { useGetOrder } from '../services/api/useOrder'
-import { useNavigate, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import { Helmet } from 'react-helmet-async';
 import CheckoutSteps from '../components/shipping/Checkout';
-import { Store } from '../AppStateContext';
+//import { Store } from '../AppStateContext';
 import ReviewCard from '../components/shipping/ReviewCard';
 import { getError } from '../utils/error';
 import { Button } from '../components/ui/Button';
+import { useGetPaypalKey, usePaypalPay } from '../services/api/usePay';
+import { 
+    DISPATCH_ACTION, 
+    PayPalButtons, 
+    PayPalButtonsComponentProps, 
+    SCRIPT_LOADING_STATE, 
+    usePayPalScriptReducer 
+} from '@paypal/react-paypal-js';
+
+import { ApiError } from '../types/ApiError';
+import Spinner from '../assets/spinner/Spinner';
 
 export default function OrderPage() {
 
     const { id: orderId } = useParams();
 
-    const navigate = useNavigate();
+    //const navigate = useNavigate();
 
-    const { state: { cart }, dispatch } = useContext(Store);
+    //const { state: { cart }, dispatch } = useContext(Store);
 
     const {
       data: orderData,
-      isPending,
+      //isPending: isOrderPending,
       isError,
       error,
       refetch,
     } = useGetOrder(orderId!);
 
+    const {mutateAsync: payOrder, isPending: isPayLoading} = usePaypalPay();
+    const [{isPending, isRejected}, paypalDispatch ] = usePayPalScriptReducer();
+    const { data: paypalKey } = useGetPaypalKey();
+
+    const testPay = async () => {
+        await payOrder({ orderId: orderId! })
+        refetch();
+    }
+
+    useEffect(() => {
+        if (paypalKey && paypalKey.clientId) {
+          const loadPaypalScript = async () => {
+            paypalDispatch({
+              type: DISPATCH_ACTION.RESET_OPTIONS,
+              value: {
+                'clientId': paypalKey!.clientId,
+                currency: 'USD',
+              },
+            })
+            paypalDispatch({
+              type: DISPATCH_ACTION.LOADING_STATUS, 
+              value: SCRIPT_LOADING_STATE.PENDING,
+            })
+          }
+          loadPaypalScript()
+        }
+      }, [paypalKey]);
+
+      const paypalButtonTransactionProps: PayPalButtonsComponentProps = {
+        style: { layout: 'vertical' },
+        async createOrder(data, actions) {
+          return actions.order
+            .create({
+              intent: "CAPTURE",
+              purchase_units: [
+                {
+                  amount: {
+                    value: orderData!.totalPrice?.toString(), 
+                    currency_code: 'USD',
+                  },
+                },
+              ],
+            })
+            .then((orderID: string) => {
+              return orderID
+            })
+        },
+        async onApprove (data, actions)  {
+          return actions.order!.capture().then(async (details) => {
+            try {
+              await payOrder({ orderId: orderId!, ...details })
+              refetch()
+              //toast.success('Order is paid')
+              console.log('Order is paid');
+            } catch (error) {
+              //toast.error(getError(err as ApiError))
+              console.log(getError(error as ApiError));
+            }
+          })
+        },
+        onError: (error: unknown) => {
+          //toast.error(getError(err as ApiError))
+          console.log(getError(error as ApiError));
+        },
+    }
 
   return (
 
@@ -45,7 +121,8 @@ export default function OrderPage() {
                 <ReviewCard 
                     title= 'Payment Method' 
                     name= {orderData?.paymentMethod}
-                    isPaid={false}
+                    isPaid={orderData?.isPaid}
+                    paidAt={orderData?.isPaid ? orderData?.paidAt : ''}
                 />
                 <ReviewCard 
                     title= 'Items Order'
@@ -81,18 +158,34 @@ export default function OrderPage() {
                         {
                             isError && <div className='text-red-600 p-2'>{getError(error)}</div>
                         }
-                        <Button 
-                            title='pay' 
-                            variant={'primary'} 
-                            //onClick={submit}
-                            isLoading={isPending ? true : false}
-                        />  
+
+                        { !orderData?.isPaid && <>
+                            { isPending 
+                                ? <Spinner />
+                                : isRejected 
+                                ? <div className='text-red-500'>Error in connecting to PayPal</div>
+                                : <div>
+                                    <PayPalButtons
+                                    {...paypalButtonTransactionProps}
+                                    ></PayPalButtons>
+
+                                  </div>
+                            }
+                            {/* {isPayLoading && <Spinner />} */}
+                            <Button 
+                                onClick={testPay} 
+                                title='Test Pay' 
+                                variant={'primary'}
+                                isLoading={isPayLoading ? true : false}
+                            />
+                        </>}
+
                     </div>
                 </div>
 
             </section>
 
-            </div>
+        </div>
     </>
   )
 }

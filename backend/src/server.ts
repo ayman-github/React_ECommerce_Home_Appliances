@@ -3,6 +3,7 @@ import mongoose from 'mongoose';
 import productRoute from './routes/product.route';
 import seedRoute from './routes/seed.route';
 import userRoute from './routes/user.route';
+import payRoute from './routes/pay.route';
 
 //express
 const app = express();
@@ -26,6 +27,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use('/api/product', productRoute);
 app.use('/api/seed', seedRoute);
 app.use('/api/user', userRoute);
+app.use('/api/pay', payRoute);
 
 // app.get('/api/products', (req: Request, res: Response) => {
 //   res.json(sampleProduct);

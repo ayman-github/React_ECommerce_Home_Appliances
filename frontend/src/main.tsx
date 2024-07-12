@@ -19,6 +19,8 @@ const queryClient = new QueryClient({
   defaultOptions: { queries: { retry: 5, /*retryDelay: 300*/ } },
 });
 
+import { PayPalScriptProvider } from '@paypal/react-paypal-js'
+
 import HomePage from './pages/HomePage.tsx';
 import ProductPage from './pages/ProductPage.tsx';
 import { StoreProvider } from './AppStateContext.tsx'
@@ -51,12 +53,14 @@ const router = createBrowserRouter(
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <StoreProvider>
-      <QueryClientProvider client={queryClient} >
-        <HelmetProvider>
-          <RouterProvider router={router} />
-        </HelmetProvider>
-        <ReactQueryDevtools initialIsOpen={false} />
-      </QueryClientProvider>
+    <PayPalScriptProvider options={{ 'clientId': 'sb' }} deferLoading={true} >
+        <QueryClientProvider client={queryClient} >
+          <HelmetProvider>
+            <RouterProvider router={router} />
+          </HelmetProvider>
+          <ReactQueryDevtools initialIsOpen={false} />
+        </QueryClientProvider>
+      </PayPalScriptProvider>
     </StoreProvider>
   </React.StrictMode>,
 )

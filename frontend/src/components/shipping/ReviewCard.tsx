@@ -11,6 +11,7 @@ interface ICard {
     editLink?: string;
     isDelivery?: boolean;
     isPaid?: boolean;
+    paidAt?: string;
 }
 export default function ReviewCard(props: ICard) {
     const navigate = useNavigate();
@@ -38,7 +39,7 @@ export default function ReviewCard(props: ICard) {
 
         {props?.isPaid === true  && 
             <div className="p-3 mt-2 bg-green-200 text-black rounded-md">
-                Paid
+                Paid {props?.paidAt}
             </div>
         }
 
