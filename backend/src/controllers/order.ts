@@ -54,3 +54,13 @@ export const getOrder = async (req: Request, res: Response) => {
     res.status(500).json({ message: getErrorMessage(error) });
   }
 };
+
+export const getOrdersHistory = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.query;
+    const orders = await OrderModel.find({ user: id });
+    res.send(orders);
+  } catch (error: unknown) {
+    res.status(500).json({ message: getErrorMessage(error) });
+  }
+};

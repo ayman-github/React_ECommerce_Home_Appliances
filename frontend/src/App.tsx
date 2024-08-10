@@ -6,7 +6,7 @@ function App() {
   return (
     <main>
 
-      <div className='bg-white dark:bg-black text-black dark:text-white h-screen'>
+      <div className='bg-white dark:bg-black text-black dark:text-white min-h-screen'>
           <header className='bg-green-300'>
             <NavBar />
           </header>

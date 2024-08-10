@@ -23,6 +23,7 @@ export default function NavBar() {
     <div className='bg-black text-gray-300 p-3 flex justify-between items-center px-5'>
         <div>Home Appliances</div>
         <section className='flex gap-5'>
+          <Link to="/history" className="">Orders</Link>
           <Link to="/cart" className="">
               <div className='flex gap-1 relative'>
                 <span className='text-xl font-semibold text-white'>Cart</span>

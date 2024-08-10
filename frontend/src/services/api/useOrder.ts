@@ -5,7 +5,7 @@ import { Order } from '../../types/Order';
 export function useCreateOrder() {
   return useMutation({
     mutationFn: async ({ order }: { order: Order }) => {
-      const url = 'api/product/placeOrder';
+      const url = 'api/order/placeOrder';
       const response = await apiClient.post<{ message: string; order: Order }>(
         url,
         {
@@ -31,8 +31,22 @@ export function useGetOrder(id: string) {
     placeholderData: keepPreviousData,
     queryKey: ['ORDER', id],
     queryFn: async () => {
-      const url = `api/product/getOrder?orderId=${id}`;
+      const url = `api/order/getOrder?orderId=${id}`;
       const response = await apiClient.get<Order>(url);
+      return response.data;
+    },
+  });
+}
+
+export function useOrderHistory(id: string) {
+  return useQuery({
+    enabled: true,
+    _defaulted: true,
+    placeholderData: keepPreviousData,
+    queryKey: ['ORDER-HISTORY', id],
+    queryFn: async () => {
+      const url = `api/order/history?id=${id}`;
+      const response = await apiClient.get<Order[]>(url);
       return response.data;
     },
   });

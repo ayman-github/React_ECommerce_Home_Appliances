@@ -4,6 +4,7 @@ import productRoute from './routes/product.route';
 import seedRoute from './routes/seed.route';
 import userRoute from './routes/user.route';
 import payRoute from './routes/pay.route';
+import orderRoute from './routes/order.route';
 
 //express
 const app = express();
@@ -28,6 +29,7 @@ app.use('/api/product', productRoute);
 app.use('/api/seed', seedRoute);
 app.use('/api/user', userRoute);
 app.use('/api/pay', payRoute);
+app.use('/api/order', orderRoute);
 
 // app.get('/api/products', (req: Request, res: Response) => {
 //   res.json(sampleProduct);

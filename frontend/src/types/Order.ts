@@ -7,7 +7,7 @@ export type Order = {
   shippingAddress: ShippingAddress[];
   paymentMethod: string;
   user: UserType;
-  //createdAt: string;
+  createdAt: string;
   isPaid?: boolean;
   paidAt?: string;
   isDelivered?: boolean;
